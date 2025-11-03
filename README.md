@@ -54,4 +54,4 @@ The app will function offline and provide a native app-like experience.
 
 ## Deployment
 
-This app can be deployed to Vercel with zero configuration. For database support, make sure to add your Vercel Postgres credentials as environment variables in your Vercel project settings.
+This app can be deployed to Vercel with zero configuration. For database support, make sure to add your Vercel Postgres credentials as environment variables in your Vercel project settings.# mafm-bill
