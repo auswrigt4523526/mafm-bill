@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Quick Bill Generator</title>
+    
+    <!-- Mobile app metadata -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Quick Bill">
+    <meta name="theme-color" content="#4F46E5">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- App icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/appstore.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="/appstore.png">
+    
+    <!-- Add to Home Screen for Android -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Mobile styles -->
+    <link rel="stylesheet" href="/mobile.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+      .font-dancing-script {
+        font-family: 'Dancing Script', cursive;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "html2canvas": "https://aistudiocdn.com/html2canvas@^1.4.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <!-- PWA Install Prompt -->
+    <div id="installPrompt">
+      <span>Install Quick Bill Generator app?</span>
+      <button id="installButton">Install</button>
+      <button id="dismissButton">Dismiss</button>
+    </div>
+    
+    <!-- Register service worker for PWA functionality -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+              console.log('SW registered: ', registration);
+            })
+            .catch(registrationError => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+      
+      // PWA Install prompt handling
+      let deferredPrompt;
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        // Show the install prompt
+        showInstallPromotion();
+      });
+      
+      function showInstallPromotion() {
+        const installPrompt = document.getElementById('installPrompt');
+        installPrompt.style.display = 'block';
+      }
+      
+      document.getElementById('installButton').addEventListener('click', () => {
+        // Hide the install prompt
+        document.getElementById('installPrompt').style.display = 'none';
+        // Show the install prompt
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
+          });
+        }
+      });
+      
+      document.getElementById('dismissButton').addEventListener('click', () => {
+        document.getElementById('installPrompt').style.display = 'none';
+      });
+    </script>
+    
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>

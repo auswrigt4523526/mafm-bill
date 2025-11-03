@@ -1,0 +1,76 @@
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  /* Ensure proper viewport sizing */
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Optimize for mobile touch targets */
+  button, .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve form input accessibility */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Mobile navigation adjustments */
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+  }
+  
+  /* Adjust padding for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Optimize bill preview for mobile */
+  .bill-preview {
+    font-size: 14px;
+  }
+  
+  .bill-preview h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* PWA install prompt styles */
+#installPrompt {
+  position: fixed;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4F46E5;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none;
+  z-index: 1000;
+  text-align: center;
+}
+
+#installPrompt button {
+  background: white;
+  color: #4F46E5;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-left: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#installPrompt button:hover {
+  background: #f0f0f0;
+}
