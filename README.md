@@ -6,7 +6,7 @@ A mobile-friendly application for creating, saving, and sharing bills quickly. G
 
 - Create bills with items, quantities, and rates
 - Automatic calculation of totals and balances
-- Save bills locally or to a database
+- Save bills to cloud storage
 - Export bills as images for sharing
 - Mobile-responsive design for on-the-go billing
 - Progressive Web App (PWA) support for mobile installation
@@ -24,13 +24,11 @@ A mobile-friendly application for creating, saving, and sharing bills quickly. G
 
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 
-3. For database support, set up Vercel Postgres:
-   - Create a Vercel Postgres database
-   - Copy [.env.example](.env.example) to [.env.local](.env.local) and fill in your database credentials
-   - Run the setup script:
-     ```bash
-     npm run setup-db
-     ```
+3. For data storage, you can use:
+   - Firebase Realtime Database (recommended)
+   - Vercel KV (requires payment method for free tier)
+   - Vercel Postgres (requires payment method even for free tier)
+   - localStorage (built-in fallback)
 
 4. Add mobile app icons:
    - Place your `appstore.png` and `playstore.png` files in the `public` directory
@@ -52,6 +50,47 @@ This app supports installation as a Progressive Web App (PWA) on both iOS and An
 
 The app will function offline and provide a native app-like experience.
 
+## Storage Options
+
+### Firebase (Recommended)
+Firebase provides a generous free tier perfect for this application:
+- 1 GB Realtime Database storage
+- 10 GB bandwidth/month
+- No payment method required
+- Cross-device sync
+- Hosting included
+
+### Vercel KV
+KV provides a simple key-value store:
+- 100,000 requests per day (free tier)
+- 100MB storage (free tier)
+- Requires payment method even for free usage
+
+### Vercel Postgres
+Full PostgreSQL database:
+- 256MB storage (free tier)
+- 1000 connections per day
+- Requires payment method even for free usage
+
+### localStorage (Fallback)
+Built-in browser storage:
+- Limited to user's browser
+- No cross-device sync
+- No configuration required
+- Works immediately
+
 ## Deployment
 
-This app can be deployed to Vercel with zero configuration. For database support, make sure to add your Vercel Postgres credentials as environment variables in your Vercel project settings.# mafm-bill
+### Firebase Hosting (Recommended)
+```bash
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+npm run build
+firebase deploy
+```
+
+### Vercel Deployment
+This app can be deployed to Vercel with zero configuration. For database support, make sure to add your database credentials as environment variables in your Vercel project settings.
+
+# mafm-bill
